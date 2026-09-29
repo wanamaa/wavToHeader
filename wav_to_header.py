@@ -104,7 +104,7 @@ def convert(input_path, output_path, var_name, target_rate, do_normalize=True, g
     guard = os.path.basename(output_path).upper().replace('.', '_').replace('-', '_')
 
     with open(output_path, 'w') as f:
-        f.write(f"#ifndef {guard}\n#define {guard}\n\n")
+        f.write(f"#ifndef {guard}\n#define {guard}\n\n#include <stdint.h>\n\n")
         f.write(f"// Auto-generated from {os.path.basename(input_path)}\n")
         f.write(f"// {target_rate} Hz, mono, 8-bit unsigned PCM, {duration_s:.2f} sec\n\n")
         f.write(f"const unsigned long {var_name}_LENGTH = {sample_count}UL;\n")
