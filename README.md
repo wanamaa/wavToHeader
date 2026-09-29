@@ -85,6 +85,8 @@ Given `python wav_to_header.py hum.wav hum.h HUM_SOUND`, the generated `hum.h` l
 #ifndef HUM_H
 #define HUM_H
 
+#include <stdint.h>
+
 // Auto-generated from hum.wav
 // 8000 Hz, mono, 8-bit unsigned PCM, 2.00 sec
 
@@ -146,7 +148,6 @@ For non-blocking playback, drive the sample step from a hardware timer interrupt
 
 - **ARM / ESP32 boards:** `const` arrays live in flash automatically, so no extra keywords are needed.
 - **AVR boards (e.g. Uno/Nano):** RAM is very limited. You will need to add `PROGMEM` to the array declaration and read samples with `pgm_read_byte()`.
-- The generated header uses `uint8_t`, so make sure `<stdint.h>` is included before the header (the Arduino core usually already does this).
 
 ## Troubleshooting
 
@@ -155,8 +156,6 @@ For non-blocking playback, drive the sample step from a hardware timer interrupt
 **Audio sounds quiet**: Make sure normalization isn't disabled, then try a small `--gain` (e.g. `1.2`).
 
 **Audio sounds distorted or crunchy**: Lower `--gain`. Also note that 8-bit audio at low sample rates has audible quantization noise. Try `--rate 11025` or `16000` if the result is too rough.
-
-**Compile error on `uint8_t`**: Add `#include <stdint.h>` before including the generated header.
 
 ## How it works
 
